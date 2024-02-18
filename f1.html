@@ -1,0 +1,883 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Race Management App</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            
+        }
+        
+        h1 {
+            text-align: center;
+        }
+        h2 {
+            margin-bottom: 10px;
+        }
+        
+        form {
+            max-width: 850px;
+            margin: 20px auto;
+            padding: 25px;
+            background-color: rgba(248, 248, 248, 0.9); /* Translucent white background */
+            box-shadow: 0 0 12px rgba(0, 0, 0, 0.1);
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            transition: box-shadow 0.3s ease-in-out;
+            color: #333;
+            font-family: 'Arial', sans-serif;
+            text-align: left; /* Align form content to the left */
+            margin-bottom: 20px;
+            display: inline-block;
+          }
+          
+          form:hover {
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+            transform: scale(1.02);
+          }
+          
+          /* Styling for tables */
+          table {
+            width: 100%;
+            margin-bottom: 20px;
+            background-color: rgba(255, 255, 255, 0.9); /* Translucent white background */
+            border-collapse: collapse;
+            box-shadow: 0 0 12px rgba(0, 0, 0, 0.1);
+          }
+          
+          table th, table td {
+            padding: 12px;
+            border: 1px solid #ddd;
+          }
+          
+          table th {
+            background-color: #f2f2f2;
+          }
+          
+          /* Styling for the container of forms and tables */
+          .form-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-evenly;
+          }
+        
+        thead {
+            background-color: #f2f2f2;
+        }
+        
+        tbody tr:hover {
+            background-color: #f5f5f5;
+        }
+        
+        button {
+            padding: 10px;
+            margin-right: 10px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        
+        button:hover {
+            background-color: #45a049;
+        }
+        
+        .container {
+            margin-top: 20px;
+        }
+        
+        .box {
+            border: 1px solid #ddd;
+            padding: 20px;
+            margin-bottom: 20px;
+            border-radius: 8px;
+        }
+        
+        .box h3 {
+            margin-bottom: 10px;
+        }
+        
+        .box table {
+            margin-top: 10px;
+        }
+        
+        /* Additional styling for individual boxes */
+        #driverDetailsTable {
+            background-color: #E1F5FE;
+        }
+        
+        #teamsTable {
+            background-color: #FFECB3;
+        }
+        
+        #raceDetailsTable {
+            background-color: #B3E0A4;
+        }
+        
+        #driverChampionshipsTable {
+            background-color: #F8BBD0;
+        }
+        
+        #resultsTable {
+            background-color: #C5CAE9;
+        }
+        
+        
+    </style>
+</head>
+
+<body>
+    
+    
+    <h1>RACE MANAGEMENT SYSTEM</h1>
+
+
+    <form id="driverForm">
+        <h2>Driver Data</h2>
+
+
+        <label for="id">Driver ID:</label>
+        <input type="number" id="id" name="id" required>
+        <label for="name">Driver Name:</label>
+        <input type="text" id="name" name="name" required>
+        <label for="d_age">Driver Age:</label>
+        <input type="number" id="d_age" name="d_age" required>
+        </select>
+
+        <button type="button" onclick="submitDriverData()">Submit Driver Data</button>
+    </form>
+
+    <!-- Form for Team Data -->
+    <form id="teamForm">
+        <h2>Team Data</h2>
+        <label for="t_id">team ID:</label>
+        <input type="number" id="t_id" name="t_id" required>
+        <label for="t_name">team Name:</label>
+        <input type="text" id="t_name" name="t_name" required>
+        <label for="d_d1">Driver ID:</label>
+        <input type="number" id="d_d1" name="d_d1" required>
+
+        <button type="button" onclick="submitTeamData()">Submit Team Data</button>
+    </form>
+
+    <!-- Form for Race Details Data -->
+    <form id="raceDetailsForm">
+        <h2>Race Details Data</h2>
+        <label for="race_id">race ID:</label>
+        <input type="number" id="race_id" name="race_id" required>
+        <label for="track_length">track length:</label>
+        <input type="number" id="track_length" name="track_length" required>
+        <label for="t_safety_car">Total Safety Car:</label>
+        <input type="number" id="t_safety_car" name="t_safety_car" required>
+        <label for="weather">Weather:</label>
+        <input type="text" id="weather" name="weather" required>
+
+        <button type="button" onclick="submitRaceDetailsData()">Submit Race Details Data</button>
+    </form>
+
+    <!-- Form for Driver Championship Data -->
+    <!-- Driver Championship Data Form -->
+    <form id="driverChampionshipForm">
+        <h2>Driver Championship Data</h2>
+
+        <label for="dc_id">Championship ID:</label>
+        <input type="number" id="dc_id" name="dc_id" required>
+
+        <label for="d_id">Driver ID:</label>
+        <input type="number" id="d_id" name="d_id" required>
+
+        <label for="driver_race_wins">Race Wins:</label>
+        <input type="number" id="driver_race_wins" name="driver_race_wins" required>
+
+        <label for="driver_total_points">Total Points:</label>
+        <input type="number" id="driver_total_points" name="driver_total_points" required>
+
+        <button type="button" onclick="submitDriverChampionshipData()">Submit Driver Championship Data</button>
+    </form>
+
+    <!-- Form for Results Data -->
+    <!-- Results Data Form -->
+    <form id="resultsForm">
+        <h2>Results Data</h2>
+
+        <label for="res_id">Results ID:</label>
+        <input type="number" id="res_id" name="res_id" required>
+
+        <label for="d_id">Driver ID:</label>
+        <input type="number" id="driver_id" name="d_id" required>
+
+        <label for="driver_as_per_position">Position:</label>
+        <input type="number" id="driver_as_per_position" name="driver_as_per_position" required>
+
+        <!-- Include additional input fields for results data if needed -->
+
+        <button type="button" onclick="submitResultsData()">Submit Results Data</button>
+    </form>
+
+<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++====== -->
+
+
+    <hr>
+
+    <h2>Fetched Data</h2>
+    <table id="driverDetailsTable">
+        <h3>Driver data</h3>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Age</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- Fetched data will be inserted here dynamically -->
+        </tbody>
+    </table>
+    <table id="teamsTable">
+        <h3>Team data</h3>
+        <thead>
+            <tr>
+                <th>TeamID</th>
+                <th>TeamName</th>
+                <th>DriverID</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+
+            <!-- Fetched data will be inserted here dynamically -->
+        </tbody>
+    </table>
+
+    <table id="raceDetailsTable">
+        <h3>Race details data</h3>
+        <thead>
+            <tr>
+                <th>Race ID</th>
+                <th>Track Length</th>
+                <th>Total Safety Car</th>
+                <th>Weather</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- Fetched data will be inserted here dynamically -->
+        </tbody>
+    </table>
+    <table id="driverChampionshipsTable">
+        <h3>Driver Championship data</h3>
+        <thead>
+            <tr>
+                <th>ChampionID</th>
+                <th>ID</th>
+                <th>RaceWins</th>
+                <th>Totalpoints</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- Fetched data will be inserted here dynamically -->
+        </tbody>
+    </table>
+    <h3>Results data</h3>
+    <table id="resultsTable">
+        <thead>
+            <tr>
+                <th>res id</th>
+                <th>driverID</th>
+                <th>Positions</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- Fetched data will be inserted here dynamically -->
+        </tbody>
+    </table>
+    <div id="dataContainer"></div>
+
+
+
+<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++====== -->
+
+
+
+
+
+
+
+    <script>
+
+        document.addEventListener('DOMContentLoaded', () => {
+            fetchRaceDetails();
+            fetchDriverDetails();
+            fetchAllTeams();
+            fetchAllDriverChampionships();
+            fetchAllResults();
+        });
+
+
+        async function fetchDriverDetails() {
+            try {
+                const response = await fetch('http://localhost:4000/fetchAllData');
+                const data = await response.json();
+                displayDriverDetails(data);
+            } catch (error) {
+                console.error('Error fetching driver data:', error);
+            }
+        }
+
+        async function fetchAllTeams() {
+            try {
+                const response = await fetch('http://localhost:4000/fetchAllTeams');
+                const data = await response.json();
+                displayTeams(data);
+            } catch (error) {
+                console.error('Error fetching team data:', error);
+            }
+        }
+        async function fetchRaceDetails() {
+            try {
+                const response = await fetch('http://localhost:4000/fetchAllRaceDetails');
+                const data = await response.json();
+                displayRaceDetails(data);
+            } catch (error) {
+                console.error('Error fetching race details:', error);
+            }
+        }
+
+        async function fetchAllDriverChampionships() {
+            try {
+                const response = await fetch('http://localhost:4000/fetchAllDriverChampionships');
+                const data = await response.json();
+                displayDriverChampionships(data);
+            } catch (error) {
+                console.error('Error fetching driver championship data:', error);
+            }
+        }
+
+        async function fetchAllResults() {
+            try {
+                const response = await fetch('http://localhost:4000/fetchAllResults');
+                const data = await response.json();
+        
+                const table = document.getElementById("resultsTable");
+                table.innerHTML = `
+                    <thead>
+                        <tr>
+                            <th>RES id</th>
+                            <th>driverID</th>
+                            <th>Positions</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        ${data.map(row => `
+                            <tr>
+                                <td>${row.res_id}</td>
+                                <td>${row.d_id}</td>
+                                <td>${row.driver_as_per_position}</td>
+                                <td>
+                                    <button onclick="updateResultDetails(${row.res_id})">Update</button>
+                                    <button onclick="deleteresultDetails(${row.res_id})">Delete</button>
+                                </td>
+                            </tr>
+                        `).join('')}
+                    </tbody>
+                `;
+            } catch (error) {
+                console.error('Error fetching results data:', error);
+            }
+        }
+        
+        // async function fetchAllResults() {
+        //    try {
+        //        const response = await fetch('http://localhost:4000/fetchAllResults');
+        //        const data = await response.json();
+        //        displayfetchAllResults(data);
+        //    } catch (error) {
+        //        console.error('Error fetching driver championship data:', error);
+        //    }
+       // } 
+
+        ///++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++====== -->
+
+
+
+
+
+
+
+
+        function submitDriverData() {
+            const formData = {
+                id: document.getElementById("id").value,
+                name: document.getElementById("name").value,
+                d_age: document.getElementById("d_age").value,
+            };
+
+            fetch("http://localhost:4000/submit", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(formData),
+            })
+                .then((response) => response.text())
+                .then((data) => {
+                    console.log(data);
+                    // Add any additional actions you want to perform after submission
+                    fetchDriverDetails();
+                })
+                .catch((error) => console.error("Error:", error));
+        }
+
+        function submitTeamData() {
+            const formData = {
+                t_id: document.getElementById("t_id").value,
+                t_name: document.getElementById("t_name").value,
+                d_d1: document.getElementById("d_d1").value,
+            };
+
+            fetch("http://localhost:4000/addTeam", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(formData),
+            })
+                .then((response) => response.text())
+                .then((data) => {
+                    console.log(data);
+                    // Add any additional actions you want to perform after submission
+                    // Refresh teams table if needed
+                    fetchAllTeams();
+                })
+                .catch((error) => console.error("Error:", error));
+        }
+        function submitRaceDetailsData() {
+            const formData = {
+                race_id: document.getElementById("race_id").value,
+                track_length: document.getElementById("track_length").value,
+                t_safety_car: document.getElementById("t_safety_car").value,
+                weather: document.getElementById("weather").value,
+            };
+
+            fetch("http://localhost:4000/addRaceDetails", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(formData),
+            })
+                .then((response) => response.text())
+                .then((data) => {
+                    console.log(data);
+                    // Add any additional actions you want to perform after submission
+                    // Refresh race details table if needed
+                    fetchRaceDetails();  // Assuming you have a function like this to fetch and display race details
+                })
+                .catch((error) => console.error("Error:", error));
+        }
+        function submitDriverChampionshipData() {
+            const formData = {
+                dc_id: document.getElementById("dc_id").value,
+                d_id: document.getElementById("d_id").value,
+                driver_race_wins: document.getElementById("driver_race_wins").value,
+                driver_total_points: document.getElementById("driver_total_points").value,
+            };
+
+            fetch("http://localhost:4000/addDriverChampionship", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(formData),
+            })
+                .then((response) => response.text())
+                .then((data) => {
+                    console.log(data);
+                    // Add any additional actions you want to perform after submission
+                    // Refresh driver championships table if needed
+                    fetchAllDriverChampionships();
+                })
+                .catch((error) => console.error("Error:", error));
+        }
+        function submitResultsData() {
+            const formData = {
+                res_id:document.getElementById("res_id").value,
+                d_id: document.getElementById("driver_id").value,
+                driver_as_per_position: document.getElementById("driver_as_per_position").value,
+                // Include additional fields as needed
+            };
+console.log(formData)
+            fetch("http://localhost:4000/addResult", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(formData),
+            })
+                .then((response) => response.text())
+                .then((data) => {
+                    console.log(data);
+                    // Add any additional actions you want to perform after submission
+                    // Refresh results table if needed
+                    fetchAllResults();
+                })
+                .catch((error) => console.error("Error:", error));
+        }
+
+
+
+
+
+
+
+
+
+
+        //================DISPLAY==========================
+
+        function displayDriverDetails(data) {
+            const table = document.getElementById("driverDetailsTable");
+            table.innerHTML = `
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Name</th>
+                        <th>Age</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    ${data.map(row => `
+                        <tr>
+                            <td>${row.id}</td>
+                            <td>${row.name}</td>
+                            <td>${row.d_age}</td>
+                            <td>
+                                <button onclick="updateDriverDetails(${row.id})">Update</button>
+                                <button onclick="deleteDriverDetails(${row.id})">Delete</button>
+                            </td>
+                        </tr>
+                    `).join('')}
+                </tbody>
+            `;
+        }
+
+        function displayTeams(data) {
+            const table = document.getElementById("teamsTable");
+            table.innerHTML = `
+                <thead>
+                    <tr>
+                        <th>TeamID</th>
+                        <th>TeamName</th>
+                        <th>DriverID</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    ${data.map(row => `
+                        <tr>
+                            <td>${row.t_id}</td>
+                            <td>${row.t_name}</td>
+                            <td>${row.d_d1}</td>
+                            <td>
+                                <button onclick="updateTeamDetails(${row.t_id})">Update</button>
+                                <button onclick="deleteTeamDetails(${row.t_id})">Delete</button>
+                            </td>
+                        </tr>
+                    `).join('')}
+                </tbody>
+            `;
+        }
+
+        function displayRaceDetails(data) {
+            const table = document.getElementById("raceDetailsTable");
+            table.innerHTML = `
+                <thead>
+                    <tr>
+                        <th>Race ID</th>
+                        <th>Track Length</th>
+                        <th>Total Safety Car</th>
+                        <th>Weather</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    ${data.map(row => `
+                        <tr>
+                            <td>${row.race_id}</td>
+                            <td>${row.track_length}</td>
+                            <td>${row.t_safety_car}</td>
+                            <td>${row.weather}</td>
+                            <td>
+                                <button onclick="updateRaceDetails(${row.race_id})">Update</button>
+                                <button onclick="deleteRaceDetails(${row.race_id})">Delete</button>
+                            </td>
+                        </tr>
+                    `).join('')}
+                </tbody>
+            `;
+        }
+        function displayDriverChampionships(data) {
+            const table = document.getElementById("driverChampionshipsTable");
+            table.innerHTML = `
+                <thead>
+                    <tr>
+                        <th>ChampionID</th>
+                        <th>ID</th>
+                        <th>RaceWins</th>
+                        <th>Totalpoints</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    ${data.map(row => `
+                        <tr>
+                            <td>${row.dc_id}</td>
+                            <td>${row.d_id}</td>
+                            <td>${row.driver_race_wins}</td>
+                            <td>${row.driver_total_points}</td>
+                            <td>
+                                <button onclick="updatedriverchamDetails(${row.dc_id})">Update</button>
+                                <button onclick="deleteDriverchamDetails(${row.dc_id})">Delete</button>
+                            </td>
+                        </tr>
+                    `).join('')}
+                </tbody>
+            `;
+        }
+
+        //function displayfetchAllResults(data) {
+        //const table = document.getElementById("resultsTable");
+       //table.innerHTML = `
+            //<thead>
+             //   <tr>
+                //    <th>driverID</th>
+               //     <th>Positions</th>
+                  //  <th>Action</th>
+             //   </tr>
+           // </thead>
+         //   <tbody>
+            //    ${data.map(row => `
+               //     <tr>
+                 //       <td>${row.res_id}</td>
+                    //    <td>${row.d_id}</td>
+                    //    <td>${row.driver_as_per_position}</td>
+                    //    <td>
+                    //        <button onclick="updateResult(${row.res_id})">Update</button>
+                     //       <button onclick="deleteresultDetails(${row.res_id})">Delete</button>
+                    //    </td>
+                 //   </tr>
+            //    `).join('')}
+         //   </tbody>
+       // `;
+   // }
+
+
+
+
+
+        // ===========DELETE===============
+
+
+        function deleteDriverDetails(id) {
+            fetch(`http://localhost:4000/delete/${id}`, {
+                method: "DELETE",
+            })
+                .then((response) => response.text())
+                .then((data) => {
+                    console.log(data);
+                    // Refresh the orders table after deletion
+                    fetchDriverDetails();
+                })
+                .catch((error) => console.error("Error:", error));
+        }
+
+        function deleteTeamDetails(t_id) {
+            fetch(`http://localhost:4000/deleteTeam/${t_id}`, {
+                method: "DELETE",
+            })
+                .then((response) => response.text())
+                .then((data) => {
+                    console.log(data);
+                    // Refresh the orders table after deletion
+                    fetchAllTeams();
+                })
+                .catch((error) => console.error("Error:", error));
+        }
+
+
+        function deleteRaceDetails(race_id) {
+            fetch(`http://localhost:4000/deleteRaceDetails/${race_id}`, {
+                method: "DELETE",
+            })
+                .then((response) => response.text())
+                .then((data) => {
+                    console.log(data);
+                    // Refresh the orders table after deletion
+                    fetchRaceDetails();
+                })
+                .catch((error) => console.error("Error:", error));
+        }
+
+        function deleteDriverchamDetails(dc_id) {
+            fetch(`http://localhost:4000/deleteDriverChampionship/${dc_id}`, {
+                method: "DELETE",
+            })
+                .then((response) => response.text())
+                .then((data) => {
+                    console.log(data);
+                    // Refresh the orders table after deletion
+                    fetchAllDriverChampionships();
+                })
+                .catch((error) => console.error("Error:", error));
+        }
+
+        function deleteresultDetails(res_id) {
+            fetch(`http://localhost:4000/deleteResult/${res_id}`, {
+                method: "DELETE",
+            })
+                .then((response) => response.text())
+                .then((data) => {
+                    console.log(data);
+                    // Refresh the orders table after deletion
+                    fetchAllResults();
+                })
+                .catch((error) => console.error("Error:", error));
+        }
+
+
+
+        // =================UPDATE=========
+
+
+
+        function updateDriverDetails(id) {
+            const formData = {
+                name: prompt('Enter new name:'),
+                d_age: prompt('Enter new age:'),
+            };
+
+            fetch(`http://localhost:4000/update/${id}`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(formData),
+            })
+                .then(response => response.text())
+                .then(data => {
+                    console.log(data);
+                    // Refresh the drugs table after update
+                    fetchDriverDetails();
+                })
+                .catch(error => console.error('Error:', error));
+        }
+
+        function updateTeamDetails(t_id) {
+            const formData = {
+                t_name: prompt('Enter new Team name:'),
+                d_d1: prompt('Enter new driver id:'),
+            };
+
+            fetch(`http://localhost:4000/updateTeam/${t_id}`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(formData),
+            })
+                .then(response => response.text())
+                .then(data => {
+                    console.log(data);
+                    // Refresh the drugs table after update
+                    fetchAllTeams();
+                })
+                .catch(error => console.error('Error:', error));
+        }
+
+
+
+        function updateRaceDetails(race_id) {
+            const formData = {
+                track_length: prompt('Enter new tracklength'),
+                t_safety_car: prompt('Enter new safetycar:'),
+                weather: prompt('Enter new weather:'),
+            };
+
+            fetch(`http://localhost:4000/updateRaceDetails/${race_id}`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(formData),
+            })
+                .then(response => response.text())
+                .then(data => {
+                    console.log(data);
+                    // Refresh the drugs table after update
+                    fetchRaceDetails();
+                })
+                .catch(error => console.error('Error:', error));
+        }
+
+        function updatedriverchamDetails(dc_id) {
+            const formData = {
+                d_id: prompt('Enter new driver id'),
+                driver_race_wins: prompt('Enter new race wins:'),
+                driver_total_points: prompt('Enter new total points:'),
+            };
+
+            fetch(`http://localhost:4000/updateDriverChampionship/${dc_id}`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(formData),
+            })
+                .then(response => response.text())
+                .then(data => {
+                    console.log(data);
+                    // Refresh the drugs table after update
+                    fetchAllDriverChampionships();
+                })
+                .catch(error => console.error('Error:', error));
+        }
+
+        function updateResultDetails(res_id) {
+            const formData = {
+                d_id: prompt('Enter new driver id'),
+                driver_as_per_position: prompt('Enter new position:'),
+            };
+
+            fetch(`http://localhost:4000/updateResult/${res_id}`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(formData),
+            })
+                .then(response => response.text())
+                .then(data => {
+                    console.log(data);
+                    // Refresh the drugs table after update
+                    fetchAllResults();
+                })
+                .catch(error => console.error('Error:', error));
+        }
+        
+
+
+
+
+    </script>
+</body>
+
+</html>
